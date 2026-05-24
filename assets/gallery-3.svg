@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 360" role="img" aria-labelledby="title desc">
+  <title id="title">행사앨범 3</title>
+  <desc id="desc">1학년 학교설명회 샘플 이미지</desc>
+  <rect width="620" height="360" rx="28" fill="#0f2446"/>
+  <rect x="34" y="34" width="552" height="292" rx="24" fill="#ffffff" opacity="0.95"/>
+  <rect x="72" y="82" width="180" height="160" rx="20" fill="#dce8ff"/>
+  <rect x="274" y="82" width="240" height="18" rx="9" fill="#ff8a4c"/>
+  <rect x="274" y="120" width="220" height="18" rx="9" fill="#d9e6fb"/>
+  <rect x="274" y="152" width="240" height="18" rx="9" fill="#d9e6fb"/>
+  <rect x="274" y="184" width="180" height="18" rx="9" fill="#d9e6fb"/>
+  <text x="70" y="288" fill="#14304f" font-family="Noto Sans KR, sans-serif" font-size="24" font-weight="800">1학년 학교설명회</text>
+</svg>

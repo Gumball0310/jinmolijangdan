@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 360" role="img" aria-labelledby="title desc">
+  <title id="title">행사앨범 2</title>
+  <desc id="desc">작가 초청 인문학 특강 샘플 이미지</desc>
+  <rect width="620" height="360" rx="28" fill="#2e5aac"/>
+  <rect x="34" y="34" width="552" height="292" rx="24" fill="#ffffff" opacity="0.96"/>
+  <circle cx="150" cy="178" r="64" fill="#ffb36e"/>
+  <rect x="250" y="102" width="250" height="20" rx="10" fill="#183a74"/>
+  <rect x="250" y="142" width="220" height="18" rx="9" fill="#d9e6fb"/>
+  <rect x="250" y="174" width="260" height="18" rx="9" fill="#d9e6fb"/>
+  <rect x="250" y="206" width="190" height="18" rx="9" fill="#d9e6fb"/>
+  <text x="70" y="288" fill="#14304f" font-family="Noto Sans KR, sans-serif" font-size="24" font-weight="800">1학기 작가 초청 인문학 특강</text>
+</svg>

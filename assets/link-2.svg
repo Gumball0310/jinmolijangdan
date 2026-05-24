@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 260" role="img" aria-labelledby="title desc">
+  <title id="title">학교운영조직</title>
+  <desc id="desc">학교운영조직 바로가기 샘플 이미지</desc>
+  <rect width="420" height="260" rx="28" fill="#2e5aac"/>
+  <rect x="40" y="42" width="110" height="110" rx="24" fill="#ffffff" opacity="0.18"/>
+  <rect x="162" y="42" width="110" height="110" rx="24" fill="#ffffff" opacity="0.18"/>
+  <rect x="284" y="42" width="96" height="110" rx="24" fill="#ffffff" opacity="0.18"/>
+  <rect x="82" y="170" width="256" height="18" rx="9" fill="#d7e7ff" opacity="0.72"/>
+  <rect x="108" y="200" width="204" height="18" rx="9" fill="#d7e7ff" opacity="0.72"/>
+  <text x="40" y="230" fill="#ffffff" font-family="Noto Sans KR, sans-serif" font-size="22" font-weight="800">학교운영조직</text>
+</svg>

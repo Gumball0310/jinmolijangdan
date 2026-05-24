@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" role="img" aria-labelledby="title desc">
+  <title id="title">덕원고등학교 메인 비주얼</title>
+  <desc id="desc">교정과 하늘을 추상적으로 표현한 샘플 이미지</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#16386f" />
+      <stop offset="100%" stop-color="#3b77d4" />
+    </linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffd66a" />
+      <stop offset="100%" stop-color="#ff9f57" />
+    </linearGradient>
+  </defs>
+  <rect width="900" height="700" rx="36" fill="url(#bg)"/>
+  <circle cx="718" cy="124" r="74" fill="url(#sun)" opacity="0.95"/>
+  <path d="M0 500C120 435 232 415 360 438C456 455 551 517 686 500C782 488 843 457 900 439V700H0Z" fill="#f4f8ff" opacity="0.9"/>
+  <path d="M92 516L210 418L328 516V610H92Z" fill="#fefefe" opacity="0.95"/>
+  <path d="M190 402L260 344L330 402" fill="none" stroke="#ff8a4c" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="122" y="448" width="80" height="162" rx="16" fill="#d9e6fb"/>
+  <rect x="218" y="448" width="80" height="162" rx="16" fill="#d9e6fb"/>
+  <rect x="570" y="356" width="172" height="250" rx="22" fill="#fefefe"/>
+  <rect x="600" y="390" width="112" height="22" rx="11" fill="#3b77d4" opacity="0.8"/>
+  <rect x="600" y="434" width="112" height="22" rx="11" fill="#d9e6fb"/>
+  <rect x="600" y="478" width="112" height="22" rx="11" fill="#d9e6fb"/>
+  <rect x="600" y="522" width="112" height="22" rx="11" fill="#d9e6fb"/>
+  <text x="60" y="120" fill="#ffffff" font-family="Noto Sans KR, sans-serif" font-size="28" font-weight="700" opacity="0.9">덕원고등학교</text>
+  <text x="60" y="168" fill="#ffffff" font-family="Noto Sans KR, sans-serif" font-size="48" font-weight="800">배움과 성장의 공간</text>
+  <text x="60" y="214" fill="#d7e7ff" font-family="Noto Sans KR, sans-serif" font-size="22" font-weight="500">메인 비주얼 샘플 이미지</text>
+</svg>

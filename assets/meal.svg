@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 320" role="img" aria-labelledby="title desc">
+  <title id="title">식단표</title>
+  <desc id="desc">식단표 샘플 이미지</desc>
+  <rect width="460" height="320" rx="30" fill="#edf4ff"/>
+  <rect x="28" y="28" width="404" height="264" rx="24" fill="#ffffff"/>
+  <rect x="52" y="54" width="150" height="18" rx="9" fill="#2e5aac"/>
+  <rect x="52" y="94" width="350" height="18" rx="9" fill="#d9e6fb"/>
+  <rect x="52" y="130" width="300" height="18" rx="9" fill="#d9e6fb"/>
+  <rect x="52" y="166" width="326" height="18" rx="9" fill="#d9e6fb"/>
+  <rect x="52" y="202" width="278" height="18" rx="9" fill="#d9e6fb"/>
+  <circle cx="356" cy="208" r="52" fill="#ffb36e"/>
+  <circle cx="356" cy="208" r="24" fill="#fff2e8"/>
+  <text x="52" y="264" fill="#14304f" font-family="Noto Sans KR, sans-serif" font-size="22" font-weight="800">오늘의 식단</text>
+</svg>

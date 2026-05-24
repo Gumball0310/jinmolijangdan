@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 120" role="img" aria-labelledby="title desc">
+  <title id="title">교육부</title>
+  <desc id="desc">교육부 배너 샘플 이미지</desc>
+  <rect width="360" height="120" rx="22" fill="#0f2446"/>
+  <circle cx="290" cy="60" r="32" fill="#ffb36e"/>
+  <rect x="18" y="18" width="228" height="84" rx="18" fill="#ffffff" opacity="0.12"/>
+  <text x="32" y="64" fill="#ffffff" font-family="Noto Sans KR, sans-serif" font-size="24" font-weight="800">MOE</text>
+  <text x="32" y="88" fill="#d7e7ff" font-family="Noto Sans KR, sans-serif" font-size="14">교육부 공식 누리집</text>
+</svg>

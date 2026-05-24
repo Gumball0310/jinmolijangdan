@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 260" role="img" aria-labelledby="title desc">
+  <title id="title">학교장인사말</title>
+  <desc id="desc">학교장인사말 바로가기 샘플 이미지</desc>
+  <rect width="420" height="260" rx="28" fill="#ff8a4c"/>
+  <rect x="46" y="44" width="132" height="172" rx="22" fill="#fff2e8" opacity="0.88"/>
+  <circle cx="112" cy="92" r="34" fill="#2e5aac"/>
+  <rect x="202" y="58" width="146" height="22" rx="11" fill="#fff" opacity="0.8"/>
+  <rect x="202" y="96" width="170" height="18" rx="9" fill="#fff" opacity="0.68"/>
+  <rect x="202" y="126" width="150" height="18" rx="9" fill="#fff" opacity="0.68"/>
+  <rect x="202" y="156" width="124" height="18" rx="9" fill="#fff" opacity="0.68"/>
+  <text x="40" y="232" fill="#ffffff" font-family="Noto Sans KR, sans-serif" font-size="22" font-weight="800">학교장인사말</text>
+</svg>

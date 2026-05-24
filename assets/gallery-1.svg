@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 360" role="img" aria-labelledby="title desc">
+  <title id="title">행사앨범 1</title>
+  <desc id="desc">감사 메시지 보내기 샘플 이미지</desc>
+  <rect width="620" height="360" rx="28" fill="#183a74"/>
+  <rect x="34" y="34" width="552" height="292" rx="24" fill="#ffffff" opacity="0.96"/>
+  <rect x="70" y="68" width="220" height="20" rx="10" fill="#ff8a4c"/>
+  <rect x="70" y="112" width="220" height="120" rx="18" fill="#dce8ff"/>
+  <rect x="318" y="112" width="220" height="18" rx="9" fill="#d9e6fb"/>
+  <rect x="318" y="144" width="170" height="18" rx="9" fill="#d9e6fb"/>
+  <rect x="318" y="176" width="200" height="18" rx="9" fill="#d9e6fb"/>
+  <rect x="318" y="208" width="140" height="18" rx="9" fill="#d9e6fb"/>
+  <text x="70" y="288" fill="#14304f" font-family="Noto Sans KR, sans-serif" font-size="24" font-weight="800">2026학년도 사랑의 감사 메시지 보내기</text>
+</svg>

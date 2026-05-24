@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 120" role="img" aria-labelledby="title desc">
+  <title id="title">상담실</title>
+  <desc id="desc">패스큐 상담실 배너 샘플 이미지</desc>
+  <rect width="360" height="120" rx="22" fill="#ff8a4c"/>
+  <rect x="18" y="18" width="324" height="84" rx="18" fill="#ffffff" opacity="0.16"/>
+  <text x="32" y="66" fill="#ffffff" font-family="Noto Sans KR, sans-serif" font-size="28" font-weight="800">PASS Q</text>
+  <text x="32" y="90" fill="#fff5ef" font-family="Noto Sans KR, sans-serif" font-size="14">열린상담실 바로가기</text>
+</svg>

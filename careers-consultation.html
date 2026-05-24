@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>진학상담실 | 진학/진로 | 덕원고등학교</title>
+  <meta name="description" content="덕원고등학교 진학상담실입니다. 학생과 학부모가 진학 상담을 신청하고 기록을 확인할 수 있습니다." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=mobile-20260524-3" />
+  <style>
+    .consultation-form {
+      background-color: #f5f5f5;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      margin: 1rem 0;
+    }
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 0.25rem;
+      font-family: inherit;
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .file-list {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0;
+    }
+    .file-list li {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .file-list li:last-child {
+      border-bottom: none;
+    }
+    .file-list a {
+      color: #0066cc;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+    .file-list a:hover {
+      text-decoration: underline;
+    }
+    .info-box {
+      background-color: #f5f5f5;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      border-left: 4px solid #0066cc;
+    }
+    .page-navigation {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    .nav-link {
+      padding: 0.75rem 1.5rem;
+      background-color: #f0f0f0;
+      border-radius: 0.25rem;
+      text-decoration: none;
+      color: #333;
+      font-size: 0.9rem;
+    }
+    .nav-link:hover {
+      background-color: #e0e0e0;
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+  <div class="page-shell">
+    <header class="site-header">
+      <div class="topbar">
+        <a class="brand brand-link" href="index.html" aria-label="메인으로 이동">
+          <div class="brand-mark">덕원</div>
+          <div>
+            <p class="eyebrow">Daegu Education</p>
+            <h1>덕원고등학교</h1>
+          </div>
+        </a>
+        <div class="header-actions">
+          <a href="foundation.html">사이트맵</a>
+          <a href="about.html#map">문의</a>
+          <a href="index.html#pages" class="search-toggle">메인</a>
+        </div>
+      </div>
+      <nav class="main-nav" aria-label="주요 메뉴">
+        <a href="about.html">학교소개</a>
+        <a href="news.html">덕원소식</a>
+        <a href="students.html">학생마당</a>
+        <a href="careers.html" class="is-active">진학/진로</a>
+        <a href="teachers.html">교사마당</a>
+        <a href="community.html">열린마당</a>
+        <a href="learning.html">교수학습도움센터</a>
+        <a href="foundation.html">학교법인</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="page-hero">
+        <div class="page-hero-card">
+          <div>
+            <p class="hero-kicker">진학상담실</p>
+            <h2>개별 진학 상담으로 진로를 설계하세요</h2>
+            <p>학생과 학부모가 진학 상담을 신청하고 상담 기록을 확인할 수 있는 공간입니다.</p>
+            <div class="page-detail-meta">
+              <div class="detail-meta-item"><span>상담</span><strong>개별 신청</strong></div>
+              <div class="detail-meta-item"><span>대상</span><strong>전학년</strong></div>
+              <div class="detail-meta-item"><span>담당</span><strong>진학부</strong></div>
+              <div class="detail-meta-item"><span>시간</span><strong>학기 중</strong></div>
+            </div>
+          </div>
+          <div class="page-hero-visual">
+            <img src="assets/link-4.svg" alt="진학상담실 샘플 이미지" />
+          </div>
+        </div>
+      </section>
+
+      <section class="page-section-grid">
+        <article class="section-block page-panel">
+          <div class="section-head"><h2>진학상담 신청</h2></div>
+          <p>개별 진학 상담을 신청하실 수 있습니다. 학생의 진로 방향과 성적에 맞춰 맞춤형 상담을 제공합니다.</p>
+          <div class="consultation-form">
+            <form>
+              <div class="form-group">
+                <label for="name">학생 이름 *</label>
+                <input type="text" id="name" name="name" required />
+              </div>
+              <div class="form-group">
+                <label for="grade">학년 *</label>
+                <select id="grade" name="grade" required>
+                  <option value="">선택하세요</option>
+                  <option value="1">1학년</option>
+                  <option value="2">2학년</option>
+                  <option value="3">3학년</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="type">상담 주제 *</label>
+                <select id="type" name="type" required>
+                  <option value="">선택하세요</option>
+                  <option value="career">진로 설정 상담</option>
+                  <option value="major">전공 선택 상담</option>
+                  <option value="strategy">입시 전략 상담</option>
+                  <option value="school">대학 선택 상담</option>
+                  <option value="other">기타</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="content">상담 내용</label>
+                <textarea id="content" name="content" placeholder="상담받고 싶은 내용을 적어주세요."></textarea>
+              </div>
+              <div class="form-group">
+                <label for="phone">연락처 (학부모용) *</label>
+                <input type="tel" id="phone" name="phone" required />
+              </div>
+              <button type="submit" style="padding: 0.75rem 1.5rem; background-color: #0066cc; color: white; border: none; border-radius: 0.25rem; cursor: pointer; font-size: 0.9rem;">상담 신청하기</button>
+            </form>
+          </div>
+        </article>
+
+        <article class="section-block page-panel">
+          <div class="section-head"><h2>상담 현황 조회</h2></div>
+          <p>신청한 상담의 현황을 확인하고 상담 기록을 열람할 수 있습니다.</p>
+          <ul class="file-list">
+            <li><a href="#record-1">📋 내 상담 기록 조회하기</a></li>
+            <li><a href="#record-2">📋 상담 일정 확인</a></li>
+            <li><a href="#record-3">📋 상담사 소개</a></li>
+            <li><a href="#record-4">📋 상담실 위치 및 연락처</a></li>
+          </ul>
+        </article>
+
+        <article class="section-block page-panel">
+          <div class="section-head"><h2>집단 상담 및 특강</h2></div>
+          <p>정기적으로 개최되는 집단 상담과 입시 특강입니다.</p>
+          <ul class="file-list">
+            <li><a href="#group-1">👥 3월 신입생 진학 오리엔테이션</a></li>
+            <li><a href="#group-2">👥 5월 진학 설명회 (2학년)</a></li>
+            <li><a href="#group-3">👥 7월 수능 대비 특강 (3학년)</a></li>
+            <li><a href="#group-4">👥 9월 입시 전략 워크숍</a></li>
+            <li><a href="#group-5">👥 11월 정시 지원 설명회</a></li>
+          </ul>
+        </article>
+
+        <article class="section-block page-panel">
+          <div class="section-head"><h2>상담사 프로필</h2></div>
+          <p>진학상담실 전담 상담사 정보입니다.</p>
+          <ul class="file-list">
+            <li><a href="#counselor-1">👨‍💼 김진학 상담사 - 입시 전략 (수시·정시 전문)</a></li>
+            <li><a href="#counselor-2">👨‍💼 이진로 상담사 - 진로 설계 (전공별 안내)</a></li>
+            <li><a href="#counselor-3">👩‍💼 박상담 상담사 - 학생부 관리 및 수행평가</a></li>
+            <li><a href="#counselor-4">📞 상담실 전화: 053-235-5346 (내선 3번)</a></li>
+          </ul>
+        </article>
+
+        <article class="section-block page-panel">
+          <div class="section-head"><h2>상담 준비 자료</h2></div>
+          <p>상담 전에 미리 준비할 수 있는 자료들입니다.</p>
+          <ul class="file-list">
+            <li><a href="#prep-1">📝 상담 전 체크리스트.pdf</a></li>
+            <li><a href="#prep-2">📝 성적 분석 워크시트.xlsx</a></li>
+            <li><a href="#prep-3">📝 진로 탐색 설문지.pdf</a></li>
+            <li><a href="#prep-4">📝 전공 관심사 검사.pdf</a></li>
+            <li><a href="#prep-5">📝 상담 후 활용 계획서.hwp</a></li>
+          </ul>
+        </article>
+
+        <article class="section-block page-panel">
+          <div class="section-head"><h2>학부모 상담 안내</h2></div>
+          <p>학부모님을 위한 상담 프로그램입니다.</p>
+          <ul class="file-list">
+            <li><a href="#parent-1">👨‍👩‍👧 학부모 입시설명회 일정.pdf</a></li>
+            <li><a href="#parent-2">👨‍👩‍👧 자녀 진학 지원법.pdf</a></li>
+            <li><a href="#parent-3">👨‍👩‍👧 학생부 작성 가이드.hwp</a></li>
+            <li><a href="#parent-4">👨‍👩‍👧 2025년 입시 변화 안내.pdf</a></li>
+            <li><a href="#parent-5">📞 학부모 상담 신청 (개별 예약)</a></li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="section-block" style="margin-top: 2rem;">
+        <div class="section-head"><h2>상담실 이용 안내</h2></div>
+        <div class="info-box">
+          <p><strong>■ 상담 신청 방법</strong></p>
+          <p>위 신청 양식을 작성하거나 전화(053-235-5346, 내선 3번)로 신청할 수 있습니다.</p>
+          <p><strong>■ 상담 시간</strong></p>
+          <p>평일 10:00~17:00, 점심시간 12:00~13:00 제외. 학기 중에만 운영합니다.</p>
+          <p><strong>■ 상담 위치</strong></p>
+          <p>학생지원센터 2층 진학상담실</p>
+        </div>
+      </section>
+
+      <section class="section-block" style="margin-top: 2rem;">
+        <div class="section-head"><h2>관련 페이지</h2></div>
+        <div class="page-navigation">
+          <a href="careers.html" class="nav-link">← 진학/진로 홈</a>
+          <a href="careers-admission.html" class="nav-link">진학자료실 →</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <strong>덕원고등학교</strong>
+        <p>진학상담실</p>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">메인</a>
+        <a href="careers.html">진학/진로</a>
+        <a href="about.html">학교소개</a>
+        <a href="news.html">덕원소식</a>
+      </div>
+    </footer>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

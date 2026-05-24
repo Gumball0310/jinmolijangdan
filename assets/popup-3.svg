@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 900" role="img" aria-labelledby="title desc">
+  <title id="title">팝업 안내 3</title>
+  <desc id="desc">학생영상제 개최 안내 샘플 이미지</desc>
+  <defs>
+    <linearGradient id="g3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f2446"/>
+      <stop offset="100%" stop-color="#507fdf"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="900" rx="40" fill="url(#g3)"/>
+  <rect x="52" y="66" width="616" height="768" rx="32" fill="#ffffff" opacity="0.95"/>
+  <rect x="92" y="110" width="140" height="28" rx="14" fill="#dce8ff"/>
+  <rect x="92" y="174" width="430" height="64" rx="20" fill="#ffe5d4"/>
+  <rect x="92" y="268" width="536" height="18" rx="9" fill="#cedaeb"/>
+  <rect x="92" y="302" width="500" height="18" rx="9" fill="#cedaeb"/>
+  <rect x="92" y="336" width="460" height="18" rx="9" fill="#cedaeb"/>
+  <rect x="92" y="390" width="536" height="210" rx="26" fill="#edf4ff"/>
+  <path d="M218 504L300 446V562Z" fill="#ff8a4c"/>
+  <rect x="344" y="448" width="128" height="112" rx="18" fill="#2e5aac"/>
+  <rect x="488" y="448" width="98" height="112" rx="18" fill="#183a74"/>
+  <text x="92" y="706" fill="#183a74" font-family="Noto Sans KR, sans-serif" font-size="32" font-weight="800">학생영상제 개최 안내</text>
+  <text x="92" y="754" fill="#53657f" font-family="Noto Sans KR, sans-serif" font-size="22" font-weight="500">샘플 이미지 · 작품 출품 페이지로 연결</text>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 900" role="img" aria-labelledby="title desc">
+  <title id="title">팝업 안내 2</title>
+  <desc id="desc">학교폭력예방 학부모 교육 안내 샘플 이미지</desc>
+  <defs>
+    <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#16386f"/>
+      <stop offset="100%" stop-color="#2e5aac"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="900" rx="40" fill="url(#g2)"/>
+  <rect x="58" y="68" width="604" height="760" rx="28" fill="#ffffff" opacity="0.96"/>
+  <rect x="90" y="110" width="150" height="28" rx="14" fill="#ffe5d4"/>
+  <rect x="90" y="166" width="390" height="54" rx="18" fill="#dce8ff"/>
+  <rect x="90" y="242" width="540" height="18" rx="9" fill="#d3deef"/>
+  <rect x="90" y="274" width="520" height="18" rx="9" fill="#d3deef"/>
+  <rect x="90" y="306" width="500" height="18" rx="9" fill="#d3deef"/>
+  <rect x="90" y="376" width="540" height="250" rx="26" fill="#f5f8ff"/>
+  <circle cx="180" cy="506" r="62" fill="#ff8a4c"/>
+  <circle cx="292" cy="506" r="62" fill="#2e5aac"/>
+  <circle cx="404" cy="506" r="62" fill="#ffb36e"/>
+  <text x="90" y="706" fill="#183a74" font-family="Noto Sans KR, sans-serif" font-size="32" font-weight="800">학교폭력예방 학부모 교육 안내</text>
+  <text x="90" y="754" fill="#53657f" font-family="Noto Sans KR, sans-serif" font-size="22" font-weight="500">샘플 이미지 · 상담 및 예방 교육 연결</text>
+</svg>

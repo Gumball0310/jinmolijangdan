@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>방과후학교 | 학생마당 | 덕원고등학교</title>
+  <meta name="description" content="덕원고등학교 방과후학교입니다. 다양한 방과후 강좌와 프로그램 정보를 제공합니다." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=mobile-20260524-3" />
+  <style>
+    .course-card {
+      background-color: #f9f9f9;
+      border: 1px solid #e0e0e0;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    .course-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+    .course-info {
+      font-size: 0.9rem;
+      color: #666;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.5rem;
+    }
+    .course-info span {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .file-list {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0;
+    }
+    .file-list li {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .file-list li:last-child {
+      border-bottom: none;
+    }
+    .file-list a {
+      color: #0066cc;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+    .file-list a:hover {
+      text-decoration: underline;
+    }
+    .info-box {
+      background-color: #f5f5f5;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      border-left: 4px solid #0066cc;
+    }
+    .page-navigation {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    .nav-link {
+      padding: 0.75rem 1.5rem;
+      background-color: #f0f0f0;
+      border-radius: 0.25rem;
+      text-decoration: none;
+      color: #333;
+      font-size: 0.9rem;
+    }
+    .nav-link:hover {
+      background-color: #e0e0e0;
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+  <div class="page-shell">
+    <header class="site-header">
+      <div class="topbar">
+        <a class="brand brand-link" href="index.html" aria-label="메인으로 이동">
+          <div class="brand-mark">덕원</div>
+          <div>
+            <p class="eyebrow">Daegu Education</p>
+            <h1>덕원고등학교</h1>
+          </div>
+        </a>
+        <div class="header-actions">
+          <a href="foundation.html">사이트맵</a>
+          <a href="about.html#map">문의</a>
+          <a href="index.html#pages" class="search-toggle">메인</a>
+        </div>
+      </div>
+      <nav class="main-nav" aria-label="주요 메뉴">
+        <a href="about.html">학교소개</a>
+        <a href="news.html">덕원소식</a>
+        <a href="students.html" class="is-active">학생마당</a>
+        <a href="careers.html">진학/진로</a>
+        <a href="teachers.html">교사마당</a>
+        <a href="community.html">열린마당</a>
+        <a href="learning.html">교수학습도움센터</a>
+        <a href="foundation.html">학교법인</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="page-hero">
+        <div class="page-hero-card">
+          <div>
+            <p class="hero-kicker">방과후학교</p>
+            <h2>다양한 교육 프로그램으로 꿈을 키워요</h2>
+            <p>학생의 적성과 관심에 맞춘 수십 개의 방과후 강좌가 준비되어 있습니다.</p>
+            <div class="page-detail-meta">
+              <div class="detail-meta-item"><span>프로그램</span><strong>50개+</strong></div>
+              <div class="detail-meta-item"><span>시간</span><strong>방과후 17시~</strong></div>
+              <div class="detail-meta-item"><span>학기</span><strong>연중</strong></div>
+              <div class="detail-meta-item"><span>문의</span><strong>학생지원부</strong></div>
+            </div>
+          </div>
+          <div class="page-hero-visual">
+            <img src="assets/link-3.svg" alt="방과후학교 샘플 이미지" />
+          </div>
+        </div>
+      </section>
+
+      <section class="page-section-grid">
+        <article class="section-block page-panel">
+          <div class="section-head"><h2>학습 강좌</h2></div>
+          <p>학업 성취도 향상을 위한 교과 기초 및 심화 강좌입니다.</p>
+          <div class="course-card">
+            <div class="course-title">국어 기초·심화</div>
+            <div class="course-info">
+              <span>🎓 강사: 김국어 선생님</span>
+              <span>📅 화, 목 17:30~19:00</span>
+              <span>👥 20명</span>
+            </div>
+            <p style="margin: 0; font-size: 0.9rem;">문법, 독해, 작문의 기초부터 수능 심화까지 단계별 학습</p>
+          </div>
+          <div class="course-card">
+            <div class="course-title">수학 기초·심화</div>
+            <div class="course-info">
+              <span>🎓 강사: 이수학 선생님</span>
+              <span>📅 월, 수 17:30~19:00</span>
+              <span>👥 20명</span>
+            </div>
+            <p style="margin: 0; font-size: 0.9rem;">개념 정리부터 문제풀이, 수능 대비까지 체계적 학습</p>
+          </div>
+          <div class="course-card">
+            <div class="course-title">영어 회화</div>
+            <div class="course-info">
+              <span>🎓 강사: David 선생님</span>
+              <span>📅 월, 수 18:00~19:30</span>
+              <span>👥 15명</span>
+            </div>
+            <p style="margin: 0; font-size: 0.9rem;">원어민과 함께하는 실전 영어 회화 학습</p>
+          </div>
+        </article>
+
+        <article class="section-block page-panel">
+          <div class="section-head"><h2>과학·기술 강좌</h2></div>
+          <p>STEAM 교육과 실험 중심의 과학·기술 강좌입니다.</p>
+          <div class="course-card">
+            <div class="course-title">물리 실험실</div>
+            <div class="course-info">
+              <span>🔬 강사: 박물리 선생님</span>
+              <span>📅 화, 목 17:30~19:00</span>
+              <span>👥 20명</span>
+            </div>
+            <p style="margin: 0; font-size: 0.9rem;">직접 실험을 통한 물리 개념 학습</p>
+          </div>
+          <div class="course-card">
+            <div class="course-title">화학 실험실</div>
+            <div class="course-info">
+              <span>🔬 강사: 최화학 선생님</span>
+              <span>📅 월, 수 18:00~19:30</span>
+              <span>👥 20명</span>
+            </div>
+            <p style="margin: 0; font-size: 0.9rem;">흥미로운 화학 실험과 안전 교육</p>
+          </div>
+          <div class="course-card">
+            <div class="course-title">코딩·AI</div>
+            <div class="course-info">
+              <span>💻 강사: 정정보 선생님</span>
+              <span>📅 화, 목 18:00~19:30</span>
+              <span>👥 25명</span>
+            </div>
+            <p style="margin: 0; font-size: 0.9rem;">Python, 인공지능 기초부터 심화까지</p>
+          </div>
+        </article>
+
+        <article class="section-block page-panel">
+          <div class="section-head"><h2>예술·체육 강좌</h2></div>
+          <p>음악, 미술, 체육 활동으로 창의성과 건강을 키우는 강좌입니다.</p>
+          <div class="course-card">
+            <div class="course-title">기타 클래식</div>
+            <div class="course-info">
+              <span>🎸 강사: 김기타 강사</span>
+              <span>📅 월, 수 17:30~18:30</span>
+              <span>👥 12명</span>
+            </div>
+            <p style="margin: 0; font-size: 0.9rem;">클래식 기타 기초부터 아르페지오, 지판 학습</p>
+          </div>
+          <div class="course-card">
+            <div class="course-title">성악·음악</div>
+            <div class="course-info">
+              <span>🎤 강사: 이성악 선생님</span>
+              <span>📅 화, 목 17:30~18:30</span>
+              <span>👥 15명</span>
+            </div>
+            <p style="margin: 0; font-size: 0.9rem;">성악 기초와 음악 이론</p>
+          </div>
+          <div class="course-card">
+            <div class="course-title">미술 창작</div>
+            <div class="course-info">
+              <span>🎨 강사: 박미술 선생님</span>
+              <span>📅 월, 목 18:00~19:30</span>
+              <span>👥 15명</span>
+            </div>
+            <p style="margin: 0; font-size: 0.9rem;">드로잉, 수채화, 아크릴 등 다양한 미술 기법</p>
+          </div>
+          <div class="course-card">
+            <div class="course-title">배드민턴</div>
+            <div class="course-info">
+              <span>⚽ 강사: 최배드민턴 강사</span>
+              <span>📅 화, 목 19:00~20:30</span>
+              <span>👥 20명</span>
+            </div>
+            <p style="margin: 0; font-size: 0.9rem;">배드민턴 기초 기술과 경기 전술</p>
+          </div>
+        </article>
+
+        <article class="section-block page-panel">
+          <div class="section-head"><h2>진로·취미 강좌</h2></div>
+          <p>진로 탐색과 취미 개발을 위한 다양한 강좌입니다.</p>
+          <div class="course-card">
+            <div class="course-title">중국어 회화</div>
+            <div class="course-info">
+              <span>🌏 강사: 왕중국어 강사</span>
+              <span>📅 월, 수 19:00~20:00</span>
+              <span>👥 20명</span>
+            </div>
+            <p style="margin: 0; font-size: 0.9rem;">중국어 기초 회화와 문화 이해</p>
+          </div>
+          <div class="course-card">
+            <div class="course-title">일본어 회화</div>
+            <div class="course-info">
+              <span>🌏 강사: 나카야마 강사</span>
+              <span>📅 화, 목 19:00~20:00</span>
+              <span>👥 15명</span>
+            </div>
+            <p style="margin: 0; font-size: 0.9rem;">일본어 기초 회화와 일본 문화</p>
+          </div>
+          <div class="course-card">
+            <div class="course-title">보드게임 전략</div>
+            <div class="course-info">
+              <span>🎲 강사: 이보드게임 강사</span>
+              <span>📅 금 17:30~19:00</span>
+              <span>👥 15명</span>
+            </div>
+            <p style="margin: 0; font-size: 0.9rem;">다양한 보드게임을 통한 논리력과 창의력 개발</p>
+          </div>
+          <div class="course-card">
+            <div class="course-title">독서토론</div>
+            <div class="course-info">
+              <span>📚 강사: 정독서 선생님</span>
+              <span>📅 금 18:00~19:30</span>
+              <span>👥 20명</span>
+            </div>
+            <p style="margin: 0; font-size: 0.9rem;">다양한 도서를 읽고 토론하는 활동</p>
+          </div>
+        </article>
+
+        <article class="section-block page-panel">
+          <div class="section-head"><h2>방과후학교 안내 자료</h2></div>
+          <p>수강 신청과 운영에 관한 안내 자료입니다.</p>
+          <ul class="file-list">
+            <li><a href="#guide-1">📋 2026년 방과후학교 강좌 안내.pdf</a></li>
+            <li><a href="#guide-2">📋 수강 신청 및 수강료.xlsx</a></li>
+            <li><a href="#guide-3">📋 강사 프로필 모음.pdf</a></li>
+            <li><a href="#guide-4">📋 수강생 유의사항.hwp</a></li>
+            <li><a href="#guide-5">📋 시간표 및 강의실 배치도.pdf</a></li>
+            <li><a href="#guide-6">📋 환불 규정 및 정책.pdf</a></li>
+          </ul>
+        </article>
+
+        <article class="section-block page-panel">
+          <div class="section-head"><h2>프로그램 신청 및 관리</h2></div>
+          <p>방과후학교 프로그램 신청과 출석 관리 정보입니다.</p>
+          <ul class="file-list">
+            <li><a href="#application-1">📝 온라인 수강 신청 바로가기</a></li>
+            <li><a href="#application-2">📱 모바일 앱을 통한 출석 체크</a></li>
+            <li><a href="#application-3">📊 나의 수강 현황 조회</a></li>
+            <li><a href="#application-4">💳 수강료 납부 및 영수증</a></li>
+            <li><a href="#application-5">❓ 자주 묻는 질문(FAQ)</a></li>
+            <li><a href="#application-6">📞 학생지원부 (053-235-5346, 내선 2번)</a></li>
+          </ul>
+        </article>
+
+        <article class="section-block page-panel">
+          <div class="section-head"><h2>수강 후기 및 작품</h2></div>
+          <p>방과후학교 수강생들의 후기와 작품 갤러리입니다.</p>
+          <ul class="file-list">
+            <li><a href="#review-1">⭐ 수강생 후기 모음.pdf</a></li>
+            <li><a href="#review-2">🎨 미술 작품 갤러리</a></li>
+            <li><a href="#review-3">🎵 음악 공연 영상</a></li>
+            <li><a href="#review-4">💻 코딩 프로젝트 발표</a></li>
+            <li><a href="#review-5">📸 활동 사진 모음</a></li>
+            <li><a href="#review-6">🏆 우수 수강생 소개</a></li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="section-block" style="margin-top: 2rem;">
+        <div class="section-head"><h2>방과후학교 이용 안내</h2></div>
+        <div class="info-box">
+          <p><strong>■ 운영 시간</strong></p>
+          <p>학기 중: 매주 월~금 17:30~20:30</p>
+          <p><strong>■ 수강 신청</strong></p>
+          <p>학기 초(2월, 8월)에 온라인 신청, 선착순 마감</p>
+          <p><strong>■ 수강료</strong></p>
+          <p>강좌별로 상이하며, 자세한 정보는 신청 페이지 참조</p>
+          <p><strong>■ 특이사항</strong></p>
+          <p>장기 결석 시 환불 가능하며, 수강생 간 예의와 적극적 참여가 필수입니다.</p>
+        </div>
+      </section>
+
+      <section class="section-block" style="margin-top: 2rem;">
+        <div class="section-head"><h2>관련 페이지</h2></div>
+        <div class="page-navigation">
+          <a href="students.html" class="nav-link">← 학생마당 홈</a>
+          <a href="news.html" class="nav-link">덕원소식 →</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <strong>덕원고등학교</strong>
+        <p>방과후학교</p>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">메인</a>
+        <a href="students.html">학생마당</a>
+        <a href="about.html">학교소개</a>
+        <a href="news.html">덕원소식</a>
+      </div>
+    </footer>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

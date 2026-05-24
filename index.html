@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>덕원고등학교</title>
+  <meta name="description" content="덕원고등학교 누리집에 오신 것을 환영합니다." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=mobile-20260524-3" />
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+
+  <div class="page-shell">
+    <header class="site-header" id="home">
+      <div class="topbar">
+        <a class="brand brand-link" href="#pages" aria-label="메인 메뉴로 이동">
+          <div class="brand-mark">덕원</div>
+          <div>
+            <p class="eyebrow">Daegu Education</p>
+            <h1>덕원고등학교</h1>
+          </div>
+        </a>
+        <div class="header-actions">
+          <a href="foundation.html">사이트맵</a>
+          <a href="about.html#map">문의</a>
+          <button class="search-toggle" type="button">검색</button>
+        </div>
+      </div>
+
+      <nav class="main-nav" aria-label="주요 메뉴">
+        <a href="about.html">학교소개</a>
+        <a href="news.html">덕원소식</a>
+        <a href="students.html">학생마당</a>
+        <a href="careers.html">진학/진로</a>
+        <a href="teachers.html">교사마당</a>
+        <a href="community.html">열린마당</a>
+        <a href="learning.html">교수학습도움센터</a>
+        <a href="foundation.html">학교법인</a>
+      </nav>
+
+      <section class="hero-grid" aria-label="메인 비주얼과 공지">
+        <div class="hero-card">
+          <div class="hero-copy">
+            <p class="hero-kicker">메인비주얼</p>
+            <h2>덕원고등학교 디지털 허브</h2>
+            <p>
+              메인 페이지에서는 주요 메뉴로만 이동하고, 세부 내용은 각 전용 페이지에서 확인하도록 분리했습니다.
+            </p>
+            <div class="hero-buttons">
+              <a class="primary-btn" href="news.html">공지 보기</a>
+              <a class="secondary-btn" href="about.html">학교소개</a>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <img src="assets/hero.svg" alt="덕원고등학교 메인 비주얼 샘플 이미지" />
+          </div>
+        </div>
+
+        <aside class="notice-card" id="news">
+          <div class="section-head">
+            <h2>공지사항</h2>
+            <a href="#notice-board">more</a>
+          </div>
+          <div class="tabs" role="tablist" aria-label="공지 탭">
+            <button class="tab is-active" role="tab" aria-selected="true" data-target="notice-board">공지사항</button>
+            <button class="tab" role="tab" aria-selected="false" data-target="family-board">가정통신문</button>
+          </div>
+          <div class="tab-panels">
+            <div class="tab-panel is-active" id="notice-board" role="tabpanel">
+              <ul class="post-list">
+                <li><a href="news-notice-1.html"><span>교육발전특구 연계, 청소년 AI 크리에이터랩 참가자 모집</span><time>2026-05-12</time></a></li>
+                <li><a href="news-notice-2.html"><span>전국 중·고등학교 대상 SW·AI 경진대회 추가 모집 안내</span><time>2026-05-12</time></a></li>
+                <li><a href="news-notice-3.html"><span>고등학생 대상 데이터 크리에이터 파이프라인 교육 안내</span><time>2026-05-11</time></a></li>
+                <li><a href="news-notice-4.html"><span>2026년도 국제정보올림피아드 교육생 선발 및 추천 안내</span><time>2026-05-11</time></a></li>
+              </ul>
+            </div>
+            <div class="tab-panel" id="family-board" role="tabpanel" hidden>
+              <ul class="post-list">
+                <li><a href="news-family-1.html"><span>2026년 5월 공습 대비 민방위 훈련 계획 안내</span><time>2026-05-11</time></a></li>
+                <li><a href="news-family-2.html"><span>다자녀가정 고등학교 입학축하금 지원 재안내</span><time>2026-05-11</time></a></li>
+                <li><a href="news-family-3.html"><span>특수교육대상자 인권실태조사 온라인 조사 참여 안내</span><time>2026-05-11</time></a></li>
+                <li><a href="news-family-4.html"><span>청소년 도박 예방교육 확대 및 가정 내 관심 제고 안내</span><time>2026-05-11</time></a></li>
+              </ul>
+            </div>
+          </div>
+        </aside>
+      </section>
+    </header>
+
+    <main id="main">
+      <section class="popup-zone section-block" id="popupzone">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">팝업존</p>
+            <h2>바로 연결되는 공지 카드</h2>
+          </div>
+          <div class="slider-controls">
+            <button type="button" class="ghost-btn" data-slider="popup" data-action="prev">이전</button>
+            <button type="button" class="ghost-btn" data-slider="popup" data-action="toggle">정지</button>
+            <button type="button" class="ghost-btn" data-slider="popup" data-action="next">다음</button>
+          </div>
+        </div>
+        <div class="slider" data-slider-root="popup">
+          <article class="slide is-active">
+            <a href="#detail-popup-1">
+              <img src="assets/popup-1.svg" alt="고위기 청소년 집중심리클리닉 안내 샘플 이미지" />
+              <div class="slide-caption">
+                <strong>고위기 청소년 집중심리클리닉 안내</strong>
+                <span>상세 보기</span>
+              </div>
+            </a>
+          </article>
+          <article class="slide">
+            <a href="#detail-popup-2">
+              <img src="assets/popup-2.svg" alt="학교폭력예방 학부모 교육 안내 샘플 이미지" />
+              <div class="slide-caption">
+                <strong>학교폭력예방 학부모 교육 안내</strong>
+                <span>상세 보기</span>
+              </div>
+            </a>
+          </article>
+          <article class="slide">
+            <a href="#detail-popup-3">
+              <img src="assets/popup-3.svg" alt="학생영상제 개최 안내 샘플 이미지" />
+              <div class="slide-caption">
+                <strong>학생영상제 개최 안내</strong>
+                <span>상세 보기</span>
+              </div>
+            </a>
+          </article>
+        </div>
+      </section>
+
+      <section class="quick-links section-block" id="pages">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">바로가기</p>
+            <h2>전용 페이지로 이동</h2>
+          </div>
+        </div>
+        <div class="card-grid links-grid home-links-grid">
+          <a class="link-card" href="about.html">
+            <img src="assets/link-1.svg" alt="교육목표 샘플 이미지" />
+            <span>학교소개</span>
+          </a>
+          <a class="link-card" href="news.html">
+            <img src="assets/link-2.svg" alt="학교운영조직 샘플 이미지" />
+            <span>덕원소식</span>
+          </a>
+          <a class="link-card" href="students.html">
+            <img src="assets/link-3.svg" alt="학교장인사말 샘플 이미지" />
+            <span>학생마당</span>
+          </a>
+          <a class="link-card" href="careers.html">
+            <img src="assets/link-4.svg" alt="찾아오시는길 샘플 이미지" />
+            <span>진학/진로</span>
+          </a>
+          <a class="link-card external" href="teachers.html">
+            <img src="assets/link-5.svg" alt="교사마당 샘플 이미지" />
+            <span>교사마당</span>
+          </a>
+          <a class="link-card external" href="community.html">
+            <img src="assets/link-1.svg" alt="열린마당 샘플 이미지" />
+            <span>열린마당</span>
+          </a>
+          <a class="link-card external" href="learning.html">
+            <img src="assets/link-2.svg" alt="교수학습도움센터 샘플 이미지" />
+            <span>교수학습도움센터</span>
+          </a>
+          <a class="link-card external" href="foundation.html">
+            <img src="assets/link-3.svg" alt="학교법인 샘플 이미지" />
+            <span>학교법인</span>
+          </a>
+          <a class="link-card external" href="https://www.schoolinfo.go.kr/" target="_blank" rel="noreferrer">
+            <img src="assets/link-5.svg" alt="학교알리미 샘플 이미지" />
+            <span>학교알리미</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="feature-grid">
+        <article class="meal-card section-block" id="meal">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">식단표</p>
+              <h2>오늘의 급식</h2>
+            </div>
+            <a href="meal.html">더보기</a>
+          </div>
+          <div class="meal-content">
+            <div>
+              <p class="meal-date">급식 정보를 불러오는 중...</p>
+              <ul class="meal-list">
+                <li>급식 정보를 확인하고 있습니다.</li>
+              </ul>
+            </div>
+            <img src="assets/meal.svg" alt="식단표 샘플 이미지" />
+          </div>
+        </article>
+
+        <article class="schedule-card section-block" id="schedule">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">교육계획</p>
+              <h2>2026년 05월 일정</h2>
+            </div>
+            <div class="slider-controls">
+              <button type="button" class="ghost-btn" id="prev-month">이전</button>
+              <button type="button" class="ghost-btn" id="next-month">다음</button>
+            </div>
+          </div>
+          <div class="calendar-shell">
+            <div class="calendar-header">
+              <span id="calendar-title">2026년 05월</span>
+              <p>일정을 클릭하면 상세 설명이 아래에 나타납니다.</p>
+            </div>
+            <div class="calendar-grid" id="calendar-grid" aria-label="달력"></div>
+          </div>
+          <div class="schedule-detail" id="schedule-detail">
+            <strong>05. 15 체육한마당</strong>
+            <p>교내 체육행사, 학년별 체육 종목 운영.</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="section-block" id="gallery">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">행사앨범</p>
+            <h2>학교 현장 스케치</h2>
+          </div>
+          <a href="#gallery-board">more</a>
+        </div>
+        <div class="card-grid gallery-grid">
+          <a href="#gallery-detail-1" class="gallery-card">
+            <img src="assets/gallery-1.svg" alt="행사앨범 샘플 이미지 1" />
+            <div><strong>2026학년도 사랑의 감사 메시지 보내기</strong><span>2026-05-15</span></div>
+          </a>
+          <a href="#gallery-detail-2" class="gallery-card">
+            <img src="assets/gallery-2.svg" alt="행사앨범 샘플 이미지 2" />
+            <div><strong>1학기 작가 초청 인문학 특강</strong><span>2026-04-22</span></div>
+          </a>
+          <a href="#gallery-detail-3" class="gallery-card">
+            <img src="assets/gallery-3.svg" alt="행사앨범 샘플 이미지 3" />
+            <div><strong>1학년 학교설명회</strong><span>2026-03-27</span></div>
+          </a>
+        </div>
+      </section>
+
+      <section class="banner-strip section-block" id="banner">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">배너모음</p>
+            <h2>외부 서비스 연결</h2>
+          </div>
+        </div>
+        <div class="banner-row">
+          <a href="https://www.edunet.net/" target="_blank" rel="noreferrer"><img src="assets/banner-1.svg" alt="에듀넷 배너" /></a>
+          <a href="https://www.dge.go.kr/" target="_blank" rel="noreferrer"><img src="assets/banner-2.svg" alt="대구광역시교육청 배너" /></a>
+          <a href="https://www.moe.go.kr/" target="_blank" rel="noreferrer"><img src="assets/banner-3.svg" alt="교육부 배너" /></a>
+          <a href="https://pass-q.kr/" target="_blank" rel="noreferrer"><img src="assets/banner-4.svg" alt="상담실 배너" /></a>
+        </div>
+      </section>
+
+      <section class="section-block" id="contact">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">오시는 길</p>
+            <h2>덕원고등학교 정보</h2>
+          </div>
+        </div>
+        <div class="contact-panel" id="map">
+          <div>
+            <h3>주소</h3>
+            <p>대구광역시 수성구 욱수길 37</p>
+            <h3>연락처</h3>
+            <p>대표전화 053-235-5346</p>
+            <p>팩스 053-791-9844</p>
+          </div>
+          <img src="assets/map.svg" alt="찾아오시는길 샘플 이미지" />
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="footer">
+      <div>
+        <strong>덕원고등학교</strong>
+        <p>Copyright Daegu Future Education Research Institute All Rights Reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#home">맨위로</a>
+        <a href="news.html">공지사항</a>
+        <a href="gallery.html">행사앨범</a>
+        <a href="about.html#map">연락처</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 260" role="img" aria-labelledby="title desc">
+  <title id="title">교육목표</title>
+  <desc id="desc">교육목표 바로가기 샘플 이미지</desc>
+  <rect width="420" height="260" rx="28" fill="#183a74"/>
+  <circle cx="320" cy="80" r="54" fill="#ffb36e" opacity="0.95"/>
+  <rect x="38" y="40" width="162" height="24" rx="12" fill="#ffffff" opacity="0.16"/>
+  <rect x="38" y="86" width="226" height="54" rx="18" fill="#ffffff" opacity="0.16"/>
+  <rect x="38" y="160" width="312" height="18" rx="9" fill="#d7e7ff" opacity="0.72"/>
+  <rect x="38" y="190" width="262" height="18" rx="9" fill="#d7e7ff" opacity="0.72"/>
+  <text x="38" y="228" fill="#ffffff" font-family="Noto Sans KR, sans-serif" font-size="22" font-weight="800">교육목표</text>
+</svg>
