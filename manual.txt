@@ -14,7 +14,7 @@ cd "D:\학습공동체"
 
 아래 명령어를 입력합니다.
 
-python -m http.server 8000
+python server.py 8000
 
 정상적으로 실행되면 터미널에 서버가 실행 중이라는 문구가 표시됩니다.
 브라우저에서 아래 주소로 접속합니다.
@@ -67,7 +67,7 @@ ipconfig
 
 아래처럼 다른 포트 번호로 실행합니다.
 
-python -m http.server 8080
+python server.py 8080
 
 그 다음 브라우저에서 아래 주소로 접속합니다.
 

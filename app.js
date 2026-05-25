@@ -723,6 +723,78 @@ function setCurrentUser(user) {
   saveLocalJson(authSessionKey, { name: user.name, email: user.email });
 }
 
+async function requestAuthApi(action, payload) {
+  const response = await fetch(`/api/auth/${action}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  });
+  let data = {};
+  const contentType = response.headers.get('content-type') || '';
+  try {
+    data = contentType.includes('application/json') ? await response.json() : {};
+  } catch (error) {
+    data = {};
+  }
+
+  if (!response.ok) {
+    const message = data.message
+      || '회원 정보를 파일에 저장하려면 python server.py 8000 으로 서버를 실행해 주세요.';
+    throw new Error(message);
+  }
+
+  return data.user;
+}
+
+function signupLocalUser({ name, email, password }) {
+  const users = getAuthUsers();
+  if (users.some((user) => user.email === email)) {
+    throw new Error('이미 가입된 이메일입니다.');
+  }
+
+  users.push({
+    name,
+    email,
+    password,
+    createdAt: new Date().toISOString(),
+  });
+  setAuthUsers(users);
+  return { name, email };
+}
+
+function loginLocalUser({ email, password }) {
+  const users = getAuthUsers();
+  const matched = users.find((user) => user.email === email && user.password === password);
+  if (!matched) {
+    throw new Error('이메일 또는 비밀번호가 올바르지 않습니다.');
+  }
+  return { name: matched.name, email: matched.email };
+}
+
+async function signupAuthUser(payload) {
+  try {
+    return await requestAuthApi('signup', payload);
+  } catch (error) {
+    if (error instanceof TypeError) {
+      return signupLocalUser(payload);
+    }
+    throw error;
+  }
+}
+
+async function loginAuthUser(payload) {
+  try {
+    return await requestAuthApi('login', payload);
+  } catch (error) {
+    if (error instanceof TypeError) {
+      return loginLocalUser(payload);
+    }
+    throw error;
+  }
+}
+
 function normalizeSearchText(text) {
   return String(text || '')
     .replace(/\s+/g, ' ')
@@ -1122,7 +1194,7 @@ function initAuthUI() {
     setTimeout(() => setStatus(''), 1800);
   });
 
-  signupForm.addEventListener('submit', (event) => {
+  signupForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const formData = new FormData(signupForm);
     const name = String(formData.get('name') || '').trim();
@@ -1147,42 +1219,34 @@ function initAuthUI() {
       return;
     }
 
-    const users = getAuthUsers();
-    if (users.some((user) => user.email === email)) {
-      setStatus('이미 가입된 이메일입니다.', true);
-      return;
+    setStatus('회원가입 처리 중입니다.');
+    try {
+      const user = await signupAuthUser({ name, email, password });
+      setCurrentUser(user);
+      renderAuthState();
+      signupForm.reset();
+      closeModal();
+    } catch (error) {
+      setStatus(error.message || '회원가입 중 오류가 발생했습니다.', true);
     }
-
-    users.push({
-      name,
-      email,
-      password,
-      createdAt: new Date().toISOString(),
-    });
-    setAuthUsers(users);
-    setCurrentUser({ name, email });
-    renderAuthState();
-    signupForm.reset();
-    closeModal();
   });
 
-  loginForm.addEventListener('submit', (event) => {
+  loginForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const formData = new FormData(loginForm);
     const email = String(formData.get('email') || '').trim().toLowerCase();
     const password = String(formData.get('password') || '');
-    const users = getAuthUsers();
-    const matched = users.find((user) => user.email === email && user.password === password);
 
-    if (!matched) {
-      setStatus('이메일 또는 비밀번호가 올바르지 않습니다.', true);
-      return;
+    setStatus('로그인 처리 중입니다.');
+    try {
+      const user = await loginAuthUser({ email, password });
+      setCurrentUser(user);
+      renderAuthState();
+      loginForm.reset();
+      closeModal();
+    } catch (error) {
+      setStatus(error.message || '로그인 중 오류가 발생했습니다.', true);
     }
-
-    setCurrentUser({ name: matched.name, email: matched.email });
-    renderAuthState();
-    loginForm.reset();
-    closeModal();
   });
 
   renderAuthState();
