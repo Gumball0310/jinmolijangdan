@@ -38,6 +38,62 @@ const siteKnowledgeBase = `
 const authStorageKey = 'dwAuthUsersV1';
 const authSessionKey = 'dwAuthCurrentUserV1';
 
+const siteSearchPages = [
+  'index.html',
+  'about.html',
+  'news.html',
+  'news-notice-1.html',
+  'news-notice-2.html',
+  'news-notice-3.html',
+  'news-notice-4.html',
+  'news-family-1.html',
+  'news-family-2.html',
+  'news-family-3.html',
+  'news-family-4.html',
+  'students.html',
+  'careers.html',
+  'careers-admission.html',
+  'careers-consultation.html',
+  'teachers.html',
+  'community.html',
+  'learning.html',
+  'learning-study.html',
+  'learning-exam.html',
+  'learning-software.html',
+  'foundation.html',
+  'gallery.html',
+  'gallery-detail-1.html',
+  'gallery-detail-2.html',
+  'gallery-detail-3.html',
+  'meal.html',
+  'afterschool.html',
+];
+
+const commonFaqItems = [
+  '오늘 급식 알려줘',
+  '공지사항 보여줘',
+  '가정통신문 확인',
+  '진학자료 찾기',
+  '학습자료 찾기',
+  '오시는 길 알려줘',
+];
+
+const chatbotAllowedLinks = [
+  { label: '급식 상세', href: 'meal.html', keywords: ['급식', '식단', '점심', '중식', '밥'] },
+  { label: '공지사항', href: 'news.html', keywords: ['공지', '안내', '소식', '알림'] },
+  { label: '가정통신문', href: 'news.html', keywords: ['가정통신문', '통신문', '학부모'] },
+  { label: '진학/진로', href: 'careers.html', keywords: ['진학', '진로', '입시', '대학'] },
+  { label: '진학자료실', href: 'careers-admission.html', keywords: ['진학자료', '입시자료', '자료실'] },
+  { label: '진학상담실', href: 'careers-consultation.html', keywords: ['상담', '진학상담', '상담실'] },
+  { label: '학습자료실', href: 'learning-study.html', keywords: ['학습자료', '교과', '자료'] },
+  { label: '정기시험 정답자료실', href: 'learning-exam.html', keywords: ['시험', '정기시험', '정답', '해설'] },
+  { label: '소프트웨어학습방', href: 'learning-software.html', keywords: ['소프트웨어', '코딩', 'python', '파이썬'] },
+  { label: '오시는 길', href: 'about.html#map', keywords: ['오시는 길', '위치', '지도', '문의'] },
+  { label: '학생마당', href: 'students.html', keywords: ['학생', '학생마당'] },
+];
+
+const chatbotPositionStorageKey = 'dwChatbotPanelPositionV1';
+
 const calendarData = {
   '2026-05': [
     { day: 1, label: '노동절', detail: '노동절로 인한 휴일.' },
@@ -482,12 +538,113 @@ async function initMealPage() {
   await loadMonth();
 }
 
-function appendChatMessage(chatBody, role, text) {
+function stripMarkdownBold(text) {
+  return String(text || '').replace(/\*\*/g, '');
+}
+
+function normalizeChatbotLinks(links) {
+  if (!Array.isArray(links)) {
+    return [];
+  }
+
+  const allowedByHref = new Map(chatbotAllowedLinks.map((link) => [link.href, link]));
+  const seen = new Set();
+  return links
+    .map((link) => allowedByHref.get(String(link?.href || '').trim()))
+    .filter((link) => {
+      if (!link || seen.has(link.href)) {
+        return false;
+      }
+      seen.add(link.href);
+      return true;
+    });
+}
+
+function getFallbackChatbotLinks(...texts) {
+  const haystack = texts.map((text) => String(text || '').toLowerCase()).join(' ');
+  const matched = chatbotAllowedLinks.filter((link) => (
+    link.keywords.some((keyword) => haystack.includes(keyword.toLowerCase()))
+  ));
+  return matched.slice(0, 3);
+}
+
+function parseChatbotResponse(rawText, userText) {
+  const cleaned = stripMarkdownBold(rawText)
+    .replace(/^```(?:json)?\s*/i, '')
+    .replace(/```$/i, '')
+    .trim();
+  try {
+    const parsed = JSON.parse(cleaned);
+    if (parsed && typeof parsed === 'object') {
+      const answer = stripMarkdownBold(parsed.answer || '').trim() || cleaned;
+      const links = normalizeChatbotLinks(parsed.links);
+      return {
+        answer,
+        links: links.length ? links : getFallbackChatbotLinks(userText, answer),
+      };
+    }
+  } catch (error) {
+    // Fall back to plain-text handling below.
+  }
+
+  return {
+    answer: cleaned,
+    links: getFallbackChatbotLinks(userText, cleaned),
+  };
+}
+
+function loadChatbotPosition() {
+  try {
+    const saved = JSON.parse(window.localStorage.getItem(chatbotPositionStorageKey) || 'null');
+    if (typeof saved?.left === 'number' && typeof saved?.top === 'number') {
+      return saved;
+    }
+  } catch (error) {
+    return null;
+  }
+  return null;
+}
+
+function saveChatbotPosition(position) {
+  try {
+    window.localStorage.setItem(chatbotPositionStorageKey, JSON.stringify(position));
+  } catch (error) {
+    console.warn('챗봇 위치를 저장하지 못했습니다.', error);
+  }
+}
+
+function clampChatbotPosition(left, top, dialog) {
+  const margin = 12;
+  const width = dialog.offsetWidth || 720;
+  const height = dialog.offsetHeight || 560;
+  return {
+    left: Math.min(Math.max(margin, left), Math.max(margin, window.innerWidth - width - margin)),
+    top: Math.min(Math.max(margin, top), Math.max(margin, window.innerHeight - height - margin)),
+  };
+}
+
+function appendChatMessage(chatBody, role, text, { links = [] } = {}) {
+  const item = document.createElement('div');
+  item.className = `chatbot-message-item ${role}`;
+
   const bubble = document.createElement('div');
   bubble.className = `chatbot-message ${role}`;
-  bubble.textContent = text;
-  chatBody.appendChild(bubble);
+  bubble.textContent = stripMarkdownBold(text);
+  item.appendChild(bubble);
+
+  const safeLinks = normalizeChatbotLinks(links);
+  if (role === 'bot' && safeLinks.length) {
+    const links = document.createElement('div');
+    links.className = 'chatbot-link-row';
+    links.innerHTML = safeLinks
+      .map((link) => `<a href="${link.href}" data-chatbot-link="true">${escapeHtml(link.label)}</a>`)
+      .join('');
+    item.appendChild(links);
+  }
+
+  chatBody.appendChild(item);
   chatBody.scrollTop = chatBody.scrollHeight;
+  return bubble;
 }
 
 const chatbotStorageKey = 'dwChatbotStateV1';
@@ -564,6 +721,273 @@ function setCurrentUser(user) {
     return;
   }
   saveLocalJson(authSessionKey, { name: user.name, email: user.email });
+}
+
+function normalizeSearchText(text) {
+  return String(text || '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toLowerCase();
+}
+
+function escapeHtml(text) {
+  return String(text || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function getSearchSnippet(text, terms) {
+  const compact = String(text || '').replace(/\s+/g, ' ').trim();
+  const lower = compact.toLowerCase();
+  const firstHit = terms
+    .map((term) => lower.indexOf(term))
+    .filter((index) => index >= 0)
+    .sort((a, b) => a - b)[0];
+  const start = Math.max(0, (firstHit || 0) - 45);
+  const snippet = compact.slice(start, start + 130);
+  return `${start > 0 ? '...' : ''}${snippet}${start + 130 < compact.length ? '...' : ''}`;
+}
+
+function getCurrentPageName() {
+  const current = window.location.pathname.split('/').pop();
+  return current || 'index.html';
+}
+
+async function loadSearchIndex() {
+  const parser = new DOMParser();
+  const currentPage = getCurrentPageName();
+
+  const entries = await Promise.all(siteSearchPages.map(async (url) => {
+    try {
+      const response = await fetch(url, { cache: 'no-store' });
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const html = await response.text();
+      const doc = parser.parseFromString(html, 'text/html');
+      doc.querySelectorAll('script, style, noscript, svg').forEach((node) => node.remove());
+
+      const title = doc.querySelector('h1')?.textContent
+        || doc.querySelector('title')?.textContent
+        || url;
+      const section = doc.querySelector('.main-nav .is-active')?.textContent
+        || doc.querySelector('.hero-kicker')?.textContent
+        || '사이트';
+      const text = normalizeSearchText(doc.body?.textContent || '');
+
+      return {
+        url,
+        title: title.trim(),
+        section: section.trim(),
+        text,
+        snippetSource: doc.body?.textContent || '',
+      };
+    } catch (error) {
+      if (url === currentPage) {
+        return {
+          url,
+          title: document.querySelector('h1')?.textContent?.trim() || document.title || url,
+          section: document.querySelector('.main-nav .is-active')?.textContent?.trim() || '현재 페이지',
+          text: normalizeSearchText(document.body?.textContent || ''),
+          snippetSource: document.body?.textContent || '',
+        };
+      }
+      return null;
+    }
+  }));
+
+  return entries.filter(Boolean);
+}
+
+async function searchSite(query) {
+  const terms = normalizeSearchText(query)
+    .split(' ')
+    .filter(Boolean);
+
+  if (!terms.length) {
+    return [];
+  }
+
+  const entries = await loadSearchIndex();
+  return entries
+    .map((entry) => {
+      const titleText = normalizeSearchText(entry.title);
+      const score = terms.reduce((total, term) => {
+        if (!entry.text.includes(term) && !titleText.includes(term)) {
+          return total;
+        }
+        const titleScore = titleText.includes(term) ? 8 : 0;
+        const bodyMatches = entry.text.split(term).length - 1;
+        return total + titleScore + bodyMatches;
+      }, 0);
+
+      return {
+        ...entry,
+        score,
+        snippet: getSearchSnippet(entry.snippetSource, terms),
+      };
+    })
+    .filter((entry) => entry.score > 0)
+    .sort((a, b) => b.score - a.score || a.title.localeCompare(b.title))
+    .slice(0, 12);
+}
+
+function ensureSearchModal() {
+  let modal = document.getElementById('site-search-modal');
+  if (modal) {
+    return modal;
+  }
+
+  modal = document.createElement('section');
+  modal.className = 'site-search-modal';
+  modal.id = 'site-search-modal';
+  modal.hidden = true;
+  modal.innerHTML = `
+    <div class="site-search-dialog" role="dialog" aria-modal="true" aria-label="사이트 검색 결과">
+      <header class="site-search-dialog-head">
+        <strong>검색 결과</strong>
+        <button type="button" class="site-search-close" aria-label="검색 닫기">닫기</button>
+      </header>
+      <div class="site-search-result-summary" id="site-search-result-summary"></div>
+      <div class="site-search-results" id="site-search-results"></div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  const closeButton = modal.querySelector('.site-search-close');
+  closeButton?.addEventListener('click', () => {
+    modal.hidden = true;
+  });
+  modal.addEventListener('click', (event) => {
+    if (event.target === modal) {
+      modal.hidden = true;
+    }
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !modal.hidden) {
+      modal.hidden = true;
+    }
+  });
+
+  return modal;
+}
+
+function renderSearchResults(query, results, isLoading = false) {
+  const modal = ensureSearchModal();
+  const summary = modal.querySelector('#site-search-result-summary');
+  const list = modal.querySelector('#site-search-results');
+
+  modal.hidden = false;
+  if (!summary || !list) {
+    return;
+  }
+
+  if (isLoading) {
+    summary.textContent = `"${query}" 검색 중입니다.`;
+    list.innerHTML = '';
+    return;
+  }
+
+  summary.textContent = results.length
+    ? `"${query}" 검색 결과 ${results.length}건`
+    : `"${query}" 검색 결과가 없습니다.`;
+
+  list.innerHTML = results.length
+    ? results.map((result) => `
+        <a class="site-search-result" href="${result.url}">
+          <span>${escapeHtml(result.section)}</span>
+          <strong>${escapeHtml(result.title)}</strong>
+          <p>${escapeHtml(result.snippet)}</p>
+        </a>
+      `).join('')
+    : '<p class="site-search-empty">다른 검색어로 다시 검색해 주세요.</p>';
+}
+
+async function runSiteSearch(form, query) {
+  const input = form.querySelector('input');
+  const searchText = String(query || input?.value || '').trim();
+  if (!searchText) {
+    input?.focus();
+    return;
+  }
+
+  if (input) {
+    input.value = searchText;
+  }
+
+  renderSearchResults(searchText, [], true);
+  const results = await searchSite(searchText);
+  renderSearchResults(searchText, results);
+}
+
+function initSiteSearch() {
+  const headerActions = document.querySelector('.header-actions');
+  if (!headerActions || headerActions.querySelector('.site-assist-tools')) {
+    return;
+  }
+
+  const tools = document.createElement('div');
+  tools.className = 'site-assist-tools';
+
+  const form = document.createElement('form');
+  form.className = 'site-search-form';
+  form.setAttribute('role', 'search');
+  form.innerHTML = `
+    <label class="sr-only" for="site-search-input">사이트 검색</label>
+    <input id="site-search-input" name="q" type="search" placeholder="검색어 입력" autocomplete="off" />
+    <button type="submit">검색</button>
+  `;
+
+  form.innerHTML = `
+    <label class="sr-only" for="site-search-input">사이트 검색</label>
+    <input id="site-search-input" name="q" type="search" placeholder="검색어 입력" autocomplete="off" />
+    <button type="submit">검색</button>
+  `;
+
+  const faqList = document.createElement('div');
+  faqList.className = 'site-search-faqs';
+  faqList.setAttribute('aria-label', '자주묻는 질문');
+  faqList.innerHTML = commonFaqItems
+    .map((item) => `<button type="button" class="faq-chip" data-faq="${escapeHtml(item)}">${escapeHtml(item)}</button>`)
+    .join('');
+
+  const aiButton = document.createElement('button');
+  aiButton.className = 'chatbot-fab';
+  aiButton.id = 'chatbot-fab';
+  aiButton.type = 'button';
+  aiButton.setAttribute('aria-label', 'AI 상담 열기');
+  aiButton.innerHTML = `
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 3.25a7.75 7.75 0 0 0-6.53 11.93l-.72 3.46 3.22-.95A7.75 7.75 0 1 0 12 3.25Zm-3.1 8.35a1.05 1.05 0 1 1 0-2.1 1.05 1.05 0 0 1 0 2.1Zm3.1 0a1.05 1.05 0 1 1 0-2.1 1.05 1.05 0 0 1 0 2.1Zm3.1 0a1.05 1.05 0 1 1 0-2.1 1.05 1.05 0 0 1 0 2.1Z"/>
+    </svg>
+    <span>AI 상담</span>
+  `;
+  tools.append(form, faqList, aiButton);
+
+  const oldSearchButton = headerActions.querySelector('button.search-toggle');
+  if (oldSearchButton) {
+    oldSearchButton.replaceWith(tools);
+  } else {
+    const homeLink = Array.from(headerActions.querySelectorAll('a')).find((link) => link.textContent.trim() === '메인');
+    headerActions.insertBefore(tools, homeLink || null);
+  }
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    await runSiteSearch(form);
+  });
+
+  faqList.addEventListener('click', async (event) => {
+    const button = event.target.closest('[data-faq]');
+    if (!button) {
+      return;
+    }
+    await runSiteSearch(form, button.dataset.faq);
+  });
 }
 
 function initAuthUI() {
@@ -857,6 +1281,7 @@ async function requestChatCompletion(userText, chatHistory = []) {
 - 사용자가 원하는 정보를 직접 알려주고, 필요하면 경로를 덧붙인다.
 - "직접 알려줄 수 있는 정보"를 단순히 찾아보라고 넘기지 않는다.
 - 모르는 내용은 추측하지 말고 정중히 한계를 설명한다.
+- 마크다운 볼드 문법과 별표 강조를 절대 사용하지 않는다.
 
 [사이트 안내 범위]
 - 학교소개(about.html), 덕원소식(news.html), 학생마당(students.html), 방과후학교(afterschool.html)
@@ -865,9 +1290,13 @@ async function requestChatCompletion(userText, chatHistory = []) {
 - 급식정보(meal.html), 교사마당(teachers.html), 열린마당(community.html)
 
 [응답 방식]
-1) 먼저 질문의 직접 답을 1~2문장으로 제공
-2) 필요하면 이동 경로를 한 줄로 제공
-3) 급식 질문은 가능한 범위에서 오늘/해당일 식단을 직접 알려주고, 추가 확인 경로(meal.html)를 덧붙인다.`,
+JSON만 반환한다. 코드블록, 설명문, 마크다운을 붙이지 않는다.
+형식: {"answer":"사용자에게 보여줄 일반 텍스트","links":[{"label":"버튼명","href":"허용된 href"}]}
+answer는 질문의 직접 답을 1~3문장으로 제공한다.
+links는 관련 페이지가 있을 때만 넣고, 없으면 빈 배열을 사용한다.
+급식 질문은 가능한 범위에서 오늘/해당일 식단을 직접 알려주고 links에 meal.html을 넣는다.
+허용 링크:
+${chatbotAllowedLinks.map((link) => `- ${link.label}: ${link.href}`).join('\n')}`,
     },
     {
       role: 'system',
@@ -903,7 +1332,7 @@ ${domKnowledgeContext || '현재 페이지에서 추출된 추가 목록 없음'
   const text = data.output_text
     || data.output?.[0]?.content?.[0]?.text
     || '답변을 생성하지 못했습니다.';
-  return text;
+  return parseChatbotResponse(text, userText);
 }
 
 function initChatbotWidget() {
@@ -1036,10 +1465,251 @@ function initChatbotWidget() {
   }
 }
 
+function initChatbotWidgetV2() {
+  const body = document.body;
+  if (!body) {
+    return;
+  }
+
+  let fab = document.getElementById('chatbot-fab');
+  if (!fab) {
+    fab = document.createElement('button');
+    fab.className = 'chatbot-fab chatbot-fab-fallback';
+    fab.id = 'chatbot-fab';
+    fab.type = 'button';
+    fab.setAttribute('aria-label', 'AI 상담 열기');
+    fab.innerHTML = '<span>AI 상담</span>';
+    body.appendChild(fab);
+  }
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'chatbot-widget';
+  wrapper.innerHTML = `
+    <section class="chatbot-panel" id="chatbot-panel" aria-label="AI 상담" hidden>
+      <div class="chatbot-dialog" role="dialog" aria-modal="true" aria-labelledby="chatbot-title">
+        <header class="chatbot-header">
+          <div>
+            <span class="chatbot-kicker">AI Assistant</span>
+            <strong id="chatbot-title">AI 상담</strong>
+          </div>
+          <button type="button" class="chatbot-close" id="chatbot-close" aria-label="챗봇 닫기">닫기</button>
+        </header>
+        <div class="chatbot-body" id="chatbot-body"></div>
+        <div class="chatbot-faqs" id="chatbot-faqs" aria-label="AI 자주묻는 질문">
+          ${commonFaqItems.map((item) => `<button type="button" class="faq-chip" data-faq="${escapeHtml(item)}">${escapeHtml(item)}</button>`).join('')}
+        </div>
+        <form class="chatbot-form" id="chatbot-form">
+          <input id="chatbot-input" type="text" placeholder="질문을 입력하세요" autocomplete="off" />
+          <button type="submit">전송</button>
+        </form>
+      </div>
+    </section>
+  `;
+  body.appendChild(wrapper);
+
+  const panel = document.getElementById('chatbot-panel');
+  const dialog = panel?.querySelector('.chatbot-dialog');
+  const header = panel?.querySelector('.chatbot-header');
+  const closeButton = document.getElementById('chatbot-close');
+  const form = document.getElementById('chatbot-form');
+  const input = document.getElementById('chatbot-input');
+  const chatBody = document.getElementById('chatbot-body');
+  const faqList = document.getElementById('chatbot-faqs');
+
+  if (!fab || !panel || !dialog || !header || !closeButton || !form || !input || !chatBody || !faqList) {
+    return;
+  }
+
+  const savedState = loadChatbotState();
+  const chatHistory = Array.isArray(savedState.history)
+    ? savedState.history
+        .filter((entry) => entry && (entry.role === 'user' || entry.role === 'assistant') && typeof entry.content === 'string')
+        .slice(-16)
+    : [];
+
+  chatBody.innerHTML = '';
+  if (chatHistory.length) {
+    chatHistory.forEach((entry) => {
+      appendChatMessage(chatBody, entry.role === 'assistant' ? 'bot' : 'user', entry.content);
+    });
+  } else {
+    appendChatMessage(chatBody, 'bot', '안녕하세요! 학교 홈페이지 이용을 도와드릴게요.');
+  }
+
+  const persistChatbotState = () => {
+    saveChatbotState({
+      isOpen: !panel.hidden,
+      history: chatHistory.slice(-16),
+      chatScrollTop: chatBody.scrollTop,
+    });
+  };
+
+  const openPanel = ({ focusInput = true } = {}) => {
+    panel.hidden = false;
+    panel.classList.add('is-open');
+    const searchModal = document.getElementById('site-search-modal');
+    if (searchModal) {
+      searchModal.hidden = true;
+    }
+    const savedPosition = loadChatbotPosition();
+    if (savedPosition) {
+      const nextPosition = clampChatbotPosition(savedPosition.left, savedPosition.top, dialog);
+      dialog.style.left = `${nextPosition.left}px`;
+      dialog.style.top = `${nextPosition.top}px`;
+      dialog.classList.add('is-positioned');
+    } else {
+      dialog.style.left = '';
+      dialog.style.top = '';
+      dialog.classList.remove('is-positioned');
+    }
+    persistChatbotState();
+    if (focusInput) {
+      input.focus({ preventScroll: true });
+    }
+  };
+
+  const closePanel = () => {
+    panel.classList.remove('is-open');
+    panel.hidden = true;
+    persistChatbotState();
+  };
+
+  const sendChatMessage = async (text) => {
+    const message = String(text || '').trim();
+    if (!message) {
+      input.focus();
+      return;
+    }
+
+    openPanel({ focusInput: false });
+    appendChatMessage(chatBody, 'user', message);
+    chatHistory.push({ role: 'user', content: message });
+    trimChatHistory(chatHistory);
+    persistChatbotState();
+    input.value = '';
+    const pending = appendChatMessage(chatBody, 'bot', '답변을 생성 중입니다...');
+
+    try {
+      const result = await requestChatCompletion(message, chatHistory);
+      pending.textContent = result.answer;
+      const messageItem = pending.closest('.chatbot-message-item');
+      const links = normalizeChatbotLinks(result.links);
+      if (messageItem && links.length) {
+        const linkRow = document.createElement('div');
+        linkRow.className = 'chatbot-link-row';
+        linkRow.innerHTML = links
+          .map((link) => `<a href="${link.href}" data-chatbot-link="true">${escapeHtml(link.label)}</a>`)
+          .join('');
+        messageItem.appendChild(linkRow);
+      }
+      chatHistory.push({ role: 'assistant', content: result.answer });
+      trimChatHistory(chatHistory);
+      persistChatbotState();
+    } catch (error) {
+      pending.textContent = error.message === 'API_KEY_MISSING'
+        ? 'app.js의 openAiChatConfig.apiKey에 OpenAI API 키를 입력해 주세요.'
+        : '요청 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.';
+    }
+  };
+
+  fab.addEventListener('click', () => {
+    if (panel.hidden) {
+      openPanel();
+    } else {
+      closePanel();
+    }
+  });
+
+  closeButton.addEventListener('click', closePanel);
+  header.addEventListener('pointerdown', (event) => {
+    if (event.target.closest('button, a, input')) {
+      return;
+    }
+
+    event.preventDefault();
+    const rect = dialog.getBoundingClientRect();
+    const startX = event.clientX;
+    const startY = event.clientY;
+    const startLeft = rect.left;
+    const startTop = rect.top;
+    header.setPointerCapture(event.pointerId);
+    dialog.classList.add('is-positioned', 'is-dragging');
+    dialog.style.left = `${startLeft}px`;
+    dialog.style.top = `${startTop}px`;
+
+    const moveDialog = (moveEvent) => {
+      const next = clampChatbotPosition(
+        startLeft + moveEvent.clientX - startX,
+        startTop + moveEvent.clientY - startY,
+        dialog,
+      );
+      dialog.style.left = `${next.left}px`;
+      dialog.style.top = `${next.top}px`;
+    };
+
+    const stopDrag = () => {
+      dialog.classList.remove('is-dragging');
+      const next = clampChatbotPosition(
+        parseFloat(dialog.style.left) || startLeft,
+        parseFloat(dialog.style.top) || startTop,
+        dialog,
+      );
+      dialog.style.left = `${next.left}px`;
+      dialog.style.top = `${next.top}px`;
+      saveChatbotPosition(next);
+      header.removeEventListener('pointermove', moveDialog);
+      header.removeEventListener('pointerup', stopDrag);
+      header.removeEventListener('pointercancel', stopDrag);
+    };
+
+    header.addEventListener('pointermove', moveDialog);
+    header.addEventListener('pointerup', stopDrag);
+    header.addEventListener('pointercancel', stopDrag);
+  });
+  dialog.addEventListener('click', (event) => {
+    const link = event.target.closest('[data-chatbot-link]');
+    if (!link) {
+      return;
+    }
+    saveChatbotState({
+      isOpen: true,
+      history: chatHistory.slice(-16),
+      chatScrollTop: chatBody.scrollTop,
+    });
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !panel.hidden) {
+      closePanel();
+    }
+  });
+  chatBody.addEventListener('scroll', persistChatbotState);
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    await sendChatMessage(input.value);
+  });
+
+  faqList.addEventListener('click', async (event) => {
+    const button = event.target.closest('[data-faq]');
+    if (!button) {
+      return;
+    }
+    await sendChatMessage(button.dataset.faq);
+  });
+
+  if (savedState.isOpen) {
+    openPanel({ focusInput: false });
+  }
+  if (typeof savedState.chatScrollTop === 'number') {
+    chatBody.scrollTop = savedState.chatScrollTop;
+  }
+}
+
 initTabs();
 initSlider();
 initCalendar();
 initTodayMealCard();
 initMealPage();
+initSiteSearch();
 initAuthUI();
-initChatbotWidget();
+initChatbotWidgetV2();
