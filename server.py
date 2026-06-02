@@ -180,9 +180,9 @@ class AppHandler(SimpleHTTPRequestHandler):
 
 def main() -> None:
     os.chdir(ROOT)
-    port = int(sys.argv[1]) if len(sys.argv) > 1 else 8000
-    server = ThreadingHTTPServer(("", port), AppHandler)
-    print(f"Serving at http://localhost:{port}")
+    port = int(os.environ.get("PORT", "8000"))
+    server = ThreadingHTTPServer(("0.0.0.0", port), AppHandler)
+    print(f"Serving on port {port}")
     print(f"Auth data file: {USERS_FILE}")
     try:
         server.serve_forever()
