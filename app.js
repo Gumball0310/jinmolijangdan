@@ -1672,7 +1672,7 @@ function initChatbotWidgetV2() {
     } catch (error) {
       pending.textContent = error.message === 'API_KEY_MISSING'
         ? 'app.js의 openAiChatConfig.apiKey에 OpenAI API 키를 입력해 주세요.'
-        : '요청 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.';
+        : '돈이 없습니다. 돈을 더 결제해주세요 닝겐놈들아.';
     }
   };
 
