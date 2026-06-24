@@ -1515,7 +1515,7 @@ function initChatbotWidget() {
         if (error.message === 'API_KEY_MISSING') {
           pending.textContent = 'app.js의 openAiChatConfig.apiKey에 OpenAI API 키를 입력해 주세요.';
         } else {
-          pending.textContent = '요청 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.';
+          pending.textContent = '돈이 없어서 답변을 생성할 수 없습니다. 돈을 더 넣어주세요 닝겐';
         }
       }
     }
