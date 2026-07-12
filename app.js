@@ -12,9 +12,6 @@ const neisMealConfig = {
 };
 
 const openAiChatConfig = {
-  // 여기에 OpenAI API 키를 넣어주세요.
-  // 예: 'sk-...'
-  apiKey: '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',
   model: 'gpt-5.4-mini',
 };
 
@@ -1329,10 +1326,6 @@ function getDomKnowledgeContext() {
 }
 
 async function requestChatCompletion(userText, chatHistory = []) {
-  if (!openAiChatConfig.apiKey || openAiChatConfig.apiKey === 'YOUR_OPENAI_API_KEY_HERE') {
-    throw new Error('API_KEY_MISSING');
-  }
-
   const realtimeContext = await getRealtimeChatContext(userText);
   const domKnowledgeContext = getDomKnowledgeContext();
   const inputMessages = [
@@ -1376,11 +1369,10 @@ ${domKnowledgeContext || '현재 페이지에서 추출된 추가 목록 없음'
 
   inputMessages.push(...chatHistory);
 
-  const response = await fetch('https://api.openai.com/v1/responses', {
+  const response = await fetch('/api/chat', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${openAiChatConfig.apiKey}`,
     },
     body: JSON.stringify({
       model: openAiChatConfig.model,
@@ -1389,11 +1381,16 @@ ${domKnowledgeContext || '현재 페이지에서 추출된 추가 목록 없음'
   });
 
   if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    if (String(errorData.message || '').includes('OPENAI_API_KEY')) {
+      throw new Error('API_KEY_MISSING');
+    }
     throw new Error(`API_ERROR_${response.status}`);
   }
 
   const data = await response.json();
-  const text = data.output_text
+  const text = data.text
+    || data.output_text
     || data.output?.[0]?.content?.[0]?.text
     || '답변을 생성하지 못했습니다.';
   return parseChatbotResponse(text, userText);
@@ -1513,7 +1510,7 @@ function initChatbotWidget() {
       const pending = chatBody.querySelector('.chatbot-message.bot:last-child');
       if (pending) {
         if (error.message === 'API_KEY_MISSING') {
-          pending.textContent = 'app.js의 openAiChatConfig.apiKey에 OpenAI API 키를 입력해 주세요.';
+          pending.textContent = '서버 환경변수 OPENAI_API_KEY를 설정해 주세요.';
         } else {
           pending.textContent = '돈이 없어서 답변을 생성할 수 없습니다. 돈을 더 넣어주세요 닝겐';
         }
@@ -1671,7 +1668,7 @@ function initChatbotWidgetV2() {
       persistChatbotState();
     } catch (error) {
       pending.textContent = error.message === 'API_KEY_MISSING'
-        ? 'app.js의 openAiChatConfig.apiKey에 OpenAI API 키를 입력해 주세요.'
+        ? '서버 환경변수 OPENAI_API_KEY를 설정해 주세요.'
         : '돈이 없습니다. 돈을 더 결제해주세요 닝겐놈들아.';
     }
   };

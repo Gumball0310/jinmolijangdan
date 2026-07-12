@@ -9,6 +9,7 @@ from datetime import datetime, timezone
 from http import HTTPStatus
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from urllib import error, request
 from urllib.parse import urlparse
 
 
@@ -79,6 +80,28 @@ def verify_password(password: str, user: dict) -> bool:
     return secrets.compare_digest(digest, expected)
 
 
+def extract_openai_text(response_data: dict) -> str:
+    output_text = response_data.get("output_text")
+    if isinstance(output_text, str) and output_text.strip():
+        return output_text
+
+    output = response_data.get("output")
+    if isinstance(output, list):
+        for item in output:
+            if not isinstance(item, dict):
+                continue
+            content = item.get("content")
+            if not isinstance(content, list):
+                continue
+            for part in content:
+                if not isinstance(part, dict):
+                    continue
+                text = part.get("text")
+                if isinstance(text, str) and text.strip():
+                    return text
+    return "답변을 생성하지 못했습니다."
+
+
 class AppHandler(SimpleHTTPRequestHandler):
     def end_headers(self) -> None:
         self.send_header("Cache-Control", "no-store")
@@ -91,6 +114,9 @@ class AppHandler(SimpleHTTPRequestHandler):
             return
         if path == "/api/auth/login":
             self.handle_login()
+            return
+        if path == "/api/chat":
+            self.handle_chat()
             return
         self.send_error(HTTPStatus.NOT_FOUND, "API endpoint not found")
 
@@ -177,10 +203,57 @@ class AppHandler(SimpleHTTPRequestHandler):
         save_store(data)
         self.send_json(200, {"user": public_user(user)})
 
+    def handle_chat(self) -> None:
+        api_key = os.environ.get("OPENAI_API_KEY", "").strip()
+        if not api_key:
+            self.send_json(500, {"message": "OPENAI_API_KEY environment variable is not set."})
+            return
+
+        payload = self.read_json()
+        input_messages = payload.get("input")
+        if not isinstance(input_messages, list):
+            self.send_json(400, {"message": "input must be a list."})
+            return
+
+        model = str(
+            os.environ.get("OPENAI_MODEL")
+            or payload.get("model")
+            or "gpt-5.4-mini"
+        ).strip()
+        body = json.dumps(
+            {
+                "model": model,
+                "input": input_messages,
+            },
+            ensure_ascii=False,
+        ).encode("utf-8")
+        openai_request = request.Request(
+            "https://api.openai.com/v1/responses",
+            data=body,
+            headers={
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json",
+            },
+            method="POST",
+        )
+
+        try:
+            with request.urlopen(openai_request, timeout=30) as response:
+                response_data = json.loads(response.read().decode("utf-8"))
+        except error.HTTPError as exc:
+            detail = exc.read().decode("utf-8", errors="replace")
+            self.send_json(exc.code, {"message": "OpenAI API request failed.", "detail": detail})
+            return
+        except (error.URLError, TimeoutError, json.JSONDecodeError) as exc:
+            self.send_json(502, {"message": "OpenAI API request failed.", "detail": str(exc)})
+            return
+
+        self.send_json(200, {"text": extract_openai_text(response_data)})
+
 
 def main() -> None:
     os.chdir(ROOT)
-    port = int(os.environ.get("PORT", "8000"))
+    port = int(os.environ.get("PORT") or (sys.argv[1] if len(sys.argv) > 1 else "8000"))
     server = ThreadingHTTPServer(("0.0.0.0", port), AppHandler)
     print(f"Serving on port {port}")
     print(f"Auth data file: {USERS_FILE}")
