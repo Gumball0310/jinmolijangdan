@@ -14,25 +14,11 @@ cd "D:\학습공동체"
 
 아래 명령어를 입력합니다.
 
+$env:OPENAI_API_KEY="<OpenAI_API_KEY>"
 python server.py 8000
 
 정상적으로 실행되면 터미널에 서버가 실행 중이라는 문구가 표시됩니다.
 이 프로젝트는 회원가입/로그인 기능과 캐시 방지 설정이 들어간 server.py를 사용합니다.
-가능하면 python -m http.server 대신 python server.py 8000을 사용합니다.
-
-AI 상담 기능을 사용하려면 서버를 열기 전에 같은 터미널에서 OpenAI API 키를 환경변수로 설정합니다.
-API 키를 app.js 같은 코드 파일에 직접 적으면 GitHub 커밋/푸시가 막힐 수 있고, 방문자에게 키가 노출됩니다.
-실제 키는 코드에 저장하지 말고 실행 중인 터미널 환경변수에만 넣습니다.
-
-PowerShell:
-
-$env:OPENAI_API_KEY="<OpenAI_API_KEY>"
-python server.py 8000
-
-명령 프롬프트:
-
-set OPENAI_API_KEY=<OpenAI_API_KEY>
-python server.py 8000
 
 OPENAI_MODEL을 따로 지정하지 않으면 app.js에서 전달한 기본 모델을 사용합니다.
 서버에서 모델을 강제로 지정하고 싶으면 아래처럼 실행합니다.
