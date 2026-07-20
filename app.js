@@ -1512,7 +1512,7 @@ function initChatbotWidget() {
         if (error.message === 'API_KEY_MISSING') {
           pending.textContent = '서버 환경변수 OPENAI_API_KEY를 설정해 주세요.';
         } else {
-          pending.textContent = '돈이 없어서 답변을 생성할 수 없습니다. 돈을 더 넣어주세요 닝겐';
+          pending.textContent = '답변을 생성하지 못했습니다. 나중에 다시 시도해주세요.';
         }
       }
     }
@@ -1669,7 +1669,7 @@ function initChatbotWidgetV2() {
     } catch (error) {
       pending.textContent = error.message === 'API_KEY_MISSING'
         ? '서버 환경변수 OPENAI_API_KEY를 설정해 주세요.'
-        : '돈이 없습니다. 돈을 더 결제해주세요 닝겐놈들아.';
+        : '답변을 생성하지 못했습니다. 나중에 다시 시도해주세요.';
     }
   };
 
